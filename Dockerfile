@@ -7,7 +7,7 @@ COPY frontend/ .
 RUN npm run build
 
 # 2. Build backend + chèn frontend vào Spring Boot static
-FROM maven:3.8.5-jdk-17 AS backend-build
+FROM maven:3.8-jdk-17 AS backend-build
 WORKDIR /app
 COPY backend/pom.xml backend/
 COPY backend/src backend/src
