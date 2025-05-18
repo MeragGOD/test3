@@ -19,14 +19,14 @@ import java.io.IOException;
 @RestController
 @RequestMapping("/files")
 @RequiredArgsConstructor
-@Tag(name = "Files", description = "File download API")
+@Tag(name = "Files", description = "File serving API")
 public class FileController {
 
     private final FileStorageService fileStorageService;
 
     @GetMapping("/{fileName:.+}")
-    @Operation(summary = "Download file")
-    public ResponseEntity<Resource> downloadFile(@PathVariable String fileName, HttpServletRequest request) {
+    @Operation(summary = "Get file")
+    public ResponseEntity<Resource> getFile(@PathVariable String fileName, HttpServletRequest request) {
         Resource resource = fileStorageService.loadFileAsResource(fileName);
 
         // Try to determine file's content type
@@ -44,7 +44,7 @@ public class FileController {
 
         return ResponseEntity.ok()
                 .contentType(MediaType.parseMediaType(contentType))
-                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + resource.getFilename() + "\"")
+                .header(HttpHeaders.CACHE_CONTROL, "max-age=31536000")
                 .body(resource);
     }
 }
