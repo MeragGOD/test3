@@ -8,7 +8,7 @@ const USER_KEY = "user_info"
 const authService = {
   login: async (email, password, rememberMe = false) => {
     try {
-      const response = await api.post("/api/auth/login", { email, password })
+      const response = await api.post("/auth/login", { email, password })
       const { token, refreshToken, id, name, email: userEmail, role } = response.data
 
       // Store tokens and user info
