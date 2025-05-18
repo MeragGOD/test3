@@ -71,25 +71,18 @@ public class WebSecurityConfig {
                 .authorizeHttpRequests(auth ->
                         auth
                                 .requestMatchers("/auth/**").permitAll()
-                                .requestMatchers("/api/**").permitAll()
-                                .requestMatchers("/api/auth/**").permitAll() // Add this line to permit all auth endpoints with /api prefix
+                                .requestMatchers("/api/auth/**").permitAll()
                                 .requestMatchers("/api-docs/**").permitAll()
                                 .requestMatchers("/swagger-ui/**").permitAll()
                                 .requestMatchers("/swagger-ui.html").permitAll()
-                                .requestMatchers("/cars").permitAll()
-                                .requestMatchers("/api/cars").permitAll() // Add this line to permit all car endpoints with /api prefix
-                                .requestMatchers("/cars/available").permitAll()
-                                .requestMatchers("/api/cars/available").permitAll() // Add this line
-                                .requestMatchers("/cars/{id}").permitAll()
-                                .requestMatchers("/api/cars/{id}").permitAll() // Add this line
-                                .requestMatchers("/cars/search","/static/**", "/placeholder.svg", "/css/**", "/js/**", "/images/**","/", "/index.html", "/static/**", "/favicon.ico",
-                         "/manifest.json", "/logo192.png", "/logo512.png").permitAll()
-                                .requestMatchers("/api/cars/search").permitAll() // Add this line
+                                .requestMatchers("/cars/**").permitAll()
+                                .requestMatchers("/api/cars/**").permitAll()
                                 .requestMatchers("/files/**").permitAll()
-                                .requestMatchers("/api/files/**").permitAll() // Add this line
+                                .requestMatchers("/api/files/**").permitAll()
+                                .requestMatchers("/static/**", "/css/**", "/js/**", "/images/**", "/favicon.ico").permitAll()
                                 .anyRequest().authenticated()
                 )
-                .httpBasic(AbstractHttpConfigurer::disable); // Explicitly disable HTTP Basic
+                .httpBasic(AbstractHttpConfigurer::disable);
 
         http.authenticationProvider(authenticationProvider());
         http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
@@ -103,7 +96,8 @@ public class WebSecurityConfig {
         configuration.setAllowedOrigins(List.of("*"));
         configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"));
         configuration.setAllowedHeaders(Arrays.asList("authorization", "content-type", "x-auth-token"));
-        configuration.setExposedHeaders(List.of("x-auth-token"));
+        configuration.setExposedHeaders(Arrays.asList("x-auth-token", "Content-Disposition"));
+        configuration.setMaxAge(3600L);
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);
         return source;
