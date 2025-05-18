@@ -82,7 +82,8 @@ public class WebSecurityConfig {
                                 .requestMatchers("/api/cars/available").permitAll() // Add this line
                                 .requestMatchers("/cars/{id}").permitAll()
                                 .requestMatchers("/api/cars/{id}").permitAll() // Add this line
-                                .requestMatchers("/cars/search").permitAll()
+                                .requestMatchers("/cars/search","/static/**", "/placeholder.svg", "/css/**", "/js/**", "/images/**","/", "/index.html", "/static/**", "/favicon.ico",
+                         "/manifest.json", "/logo192.png", "/logo512.png").permitAll()
                                 .requestMatchers("/api/cars/search").permitAll() // Add this line
                                 .requestMatchers("/files/**").permitAll()
                                 .requestMatchers("/api/files/**").permitAll() // Add this line
