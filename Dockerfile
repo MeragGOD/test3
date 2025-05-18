@@ -11,7 +11,7 @@ FROM maven:3.8-openjdk-17 AS backend-build
 WORKDIR /app
 COPY backend/pom.xml backend/
 COPY backend/src backend/src
-COPY --from=frontend-build /app/frontend/build backend/src/main/resources/static
+COPY --from=frontend-build /app/frontend/build/. backend/src/main/resources/static
 RUN mvn -f backend/pom.xml clean package -DskipTests
 
 # 3. Runtime
