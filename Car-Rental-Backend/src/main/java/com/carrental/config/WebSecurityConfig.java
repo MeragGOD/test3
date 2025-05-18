@@ -71,6 +71,7 @@ public class WebSecurityConfig {
                 .authorizeHttpRequests(auth ->
                         auth
                                 .requestMatchers("/auth/**").permitAll()
+                                .requestMatchers("/api/**").permitAll()
                                 .requestMatchers("/api/auth/**").permitAll() // Add this line to permit all auth endpoints with /api prefix
                                 .requestMatchers("/api-docs/**").permitAll()
                                 .requestMatchers("/swagger-ui/**").permitAll()
