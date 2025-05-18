@@ -215,7 +215,7 @@ const BookingsPage = () => {
                       <div className="flex-shrink-0 h-16 w-16 overflow-hidden rounded-md">
                         {booking.car.imageUrl ? (
                           <img
-                            src={`http://localhost:8081/api/files/${booking.car.imageUrl}`}
+                            src={`/api/files/${booking.car.imageUrl}`}
                             alt={`${booking.car.make} ${booking.car.model}`}
                             className="h-full w-full object-cover"
                           />
